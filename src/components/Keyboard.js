@@ -1,412 +1,555 @@
 import React from "react";
 import Card from "./Card";
-// pads 1-0 sounds
-import Banjoa3f from "../assets/Banjo/banjo-a3-forte.mp3";
-import Banjoa3p from "../assets/Banjo/banjo-a3-piano.mp3";
-import Banjoa4f from "../assets/Banjo/banjo-a4-forte.mp3";
-import Banjoa4p from "../assets/Banjo/banjo-a4-piano.mp3";
-import Banjoa5f from "../assets/Banjo/banjo-a5-forte.mp3";
-import Banjoa5p from "../assets/Banjo/banjo-a5-piano.mp3";
-import Banjoas3f from "../assets/Banjo/banjo-as3-forte.mp3";
-import Banjoas3p from "../assets/Banjo/banjo-as3-piano.mp3";
-import Banjoas4f from "../assets/Banjo/banjo-as4-forte.mp3";
-import Banjoas4p from "../assets/Banjo/banjo-as4-piano.mp3";
-// pads q-p sounds
-import Banjoas5f from "../assets/Banjo/banjo-as5-forte.mp3";
-import Banjoas5p from "../assets/Banjo/banjo-as5-piano.mp3";
-import Banjob3f from "../assets/Banjo/banjo-b3-forte.mp3";
-import Banjob3p from "../assets/Banjo/banjo-b3-piano.mp3";
-import Banjob4f from "../assets/Banjo/banjo-b4-forte.mp3";
-import Banjob4p from "../assets/Banjo/banjo-b4-piano.mp3";
-import Banjob5f from "../assets/Banjo/banjo-b5-forte.mp3";
-import Banjob5p from "../assets/Banjo/banjo-b5-piano.mp3";
-import Banjoc3f from "../assets/Banjo/banjo-c3-forte.mp3";
-import Banjoc3p from "../assets/Banjo/banjo-c3-piano.mp3";
-// pads a-l sounds
-import Banjoc4f from "../assets/Banjo/banjo-c4-forte.mp3";
-import Banjoc4p from "../assets/Banjo/banjo-c4-piano.mp3";
-import Banjoc5f from "../assets/Banjo/banjo-c5-forte.mp3";
-import Banjoc5p from "../assets/Banjo/banjo-c5-piano.mp3";
-import Banjoc6f from "../assets/Banjo/banjo-c6-forte.mp3";
-import Banjocs3f from "../assets/Banjo/banjo-cs3-forte.mp3";
-import Banjocs3p from "../assets/Banjo/banjo-cs3-piano.mp3";
-import Banjocs4f from "../assets/Banjo/banjo-cs4-forte.mp3";
-import Banjocs4p from "../assets/Banjo/banjo-cs4-piano.mp3";
-// pads z-m sounds
-import Banjocs5f from "../assets/Banjo/banjo-cs5-forte.mp3";
-import Banjocs6f from "../assets/Banjo/banjo-cs6-forte.mp3";
-import Banjod3f from "../assets/Banjo/banjo-d3-forte.mp3";
-import Banjod3p from "../assets/Banjo/banjo-d3-piano.mp3";
-import Banjod4f from "../assets/Banjo/banjo-d4-forte.mp3";
-import Banjod4p from "../assets/Banjo/banjo-d4-piano.mp3";
-import Banjod5f from "../assets/Banjo/banjo-d5-forte.mp3";
-// pads 1-0 consts
-const banjoa3f = new Audio(Banjoa3f);
-const banjoa3p = new Audio(Banjoa3p);
-const banjoa4f = new Audio(Banjoa4f);
-const banjoa4p = new Audio(Banjoa4p);
-const banjoa5f = new Audio(Banjoa5f);
-const banjoa5p = new Audio(Banjoa5p);
-const banjoas3f = new Audio(Banjoas3f);
-const banjoas3p = new Audio(Banjoas3p);
-const banjoas4f = new Audio(Banjoas4f);
-const banjoas4p = new Audio(Banjoas4p);
-// pads q-p consts
-const banjoas5f = new Audio(Banjoas5f);
-const banjoas5p = new Audio(Banjoas5p);
-const banjob3f = new Audio(Banjob3f);
-const banjob3p = new Audio(Banjob3p);
-const banjob4f = new Audio(Banjob4f);
-const banjob4p = new Audio(Banjob4p);
-const banjob5f = new Audio(Banjob5f);
-const banjob5p = new Audio(Banjob5p);
-const banjoc3f = new Audio(Banjoc3f);
-const banjoc3p = new Audio(Banjoc3p);
-// pads a=l consts
-const banjoc4f = new Audio(Banjoc4f);
-const banjoc4p = new Audio(Banjoc4p);
-const banjoc5f = new Audio(Banjoc5f);
-const banjoc5p = new Audio(Banjoc5p);
-const banjoc6f = new Audio(Banjoc6f);
-const banjocs3f = new Audio(Banjocs3f);
-const banjocs3p = new Audio(Banjocs3p);
-const banjocs4f = new Audio(Banjocs4f);
-const banjocs4p = new Audio(Banjocs4p);
-// pads z-m consts
-const banjocs5f = new Audio(Banjocs5f);
-const banjocs6f = new Audio(Banjocs6f);
-const banjod3f = new Audio(Banjod3f);
-const banjod3p = new Audio(Banjod3p);
-const banjod4f = new Audio(Banjod4f);
-const banjod4p = new Audio(Banjod4p);
-const banjod5f = new Audio(Banjod5f);
+import Metronome from "../components/Metronome";
+import "../App.css";
 
 class Keyboard extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-  escFunction(event) {
-    if (event.key === "g") {
-      console.log("hello");
-      //Do whatever when esc is pressed
-    }
+    this.state = {
+      index: 0,
+      color: "white"
+    };
+
+    this.handleKey = this.handleKey.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleClick, false);
+    document.addEventListener("keydown", this.handleKey, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleClick, false);
+    document.removeEventListener("keydown", this.handleKey, false);
   }
 
-  handleClick(event) {
-    if (event.key === "1") {
-      banjoa3f.currentTime = 0.1;
-      banjoa3f.play();
-    }
-    if (event.key === "2") {
-      banjoa3p.currentTime = 0.1;
-      banjoa3p.play();
-    }
-    if (event.key === "3") {
-      banjoa4f.currentTime = 0.1;
-      banjoa4f.play();
-    }
-    if (event.key === "4") {
-      banjoa4p.currentTime = 0.1;
-      banjoa4p.play();
-    }
-    if (event.key === "5") {
-      banjoa5f.currentTime = 0.1;
-      banjoa5f.play();
-    }
-    if (event.key === "6") {
-      banjoa5p.currentTime = 0.1;
-      banjoa5p.play();
-    }
-    if (event.key === "7") {
-      banjoas3f.currentTime = 0.1;
-      banjoas3f.play();
-    }
-    if (event.key === "8") {
-      banjoas3p.currentTime = 0.1;
-      banjoas3p.play();
-    }
-    if (event.key === "9") {
-      banjoas3p.currentTime = 0.1;
-      banjoas3p.play();
-    }
-    if (event.key === "0") {
-      banjoas4f.currentTime = 0.1;
-      banjoas4f.play();
-    }
-    if (event.key === "q") {
-      banjoas4p.currentTime = 0.1;
-      banjoas4p.play();
-    }
-    if (event.key === "w") {
-      banjoas5f.currentTime = 0.1;
-      banjoas5f.play();
-    }
-    if (event.key === "e") {
-      banjoas5p.currentTime = 0.1;
-      banjoas5p.play();
-    }
-    if (event.key === "r") {
-      banjob3f.currentTime = 0.1;
-      banjob3f.play();
-    }
-    if (event.key === "t") {
-      banjob3p.currentTime = 0.1;
-      banjob3p.play();
-    }
-    if (event.key === "y") {
-      banjob4f.currentTime = 0.1;
-      banjob4f.play();
-    }
-    if (event.key === "u") {
-      banjob4p.currentTime = 0.1;
-      banjob4p.play();
-    }
-    if (event.key === "i") {
-      banjob5f.currentTime = 0.1;
-      banjob5f.play();
-    }
-    if (event.key === "o") {
-      banjob5p.currentTime = 0.1;
-      banjob5p.play();
-    }
-    if (event.key === "p") {
-      banjoc3f.currentTime = 0.1;
-      banjoc3f.play();
-    }
-    if (event.key === "a") {
-      banjoc3p.currentTime = 0.1;
-      banjoc3p.play();
-    }
-    if (event.key === "s") {
-      banjoc4f.currentTime = 0.1;
-      banjoc4f.play();
-    }
-    if (event.key === "d") {
-      banjoc4p.currentTime = 0.1;
-      banjoc4p.play();
-    }
-    if (event.key === "f") {
-      banjoc5f.currentTime = 0.1;
-      banjoc5f.play();
-    }
-    if (event.key === "g") {
-      banjoc5p.currentTime = 0.1;
-      banjoc5p.play();
-    }
-    if (event.key === "h") {
-      banjoc6f.currentTime = 0.1;
-      banjoc6f.play();
-    }
-    if (event.key === "j") {
-      banjocs3f.currentTime = 0.1;
-      banjocs3f.play();
-    }
-    if (event.key === "k") {
-      banjocs3p.currentTime = 0.1;
-      banjocs3p.play();
-    }
-    if (event.key === "l") {
-      banjocs4f.currentTime = 0.1;
-      banjocs4f.play();
-    }
-    if (event.key === "z") {
-      banjocs4p.currentTime = 0.1;
-      banjocs4p.play();
-    }
-    if (event.key === "x") {
-      banjocs5f.currentTime = 0.1;
-      banjocs5f.play();
-    }
-    if (event.key === "c") {
-      banjocs6f.currentTime = 0.1;
-      banjocs6f.play();
-    }
-    if (event.key === "v") {
-      banjod3f.currentTime = 0.1;
-      banjod3f.play();
-    }
-    if (event.key === "b") {
-      banjod3p.currentTime = 0.1;
-      banjod3p.play();
-    }
-    if (event.key === "n") {
-      banjod4f.currentTime = 0.1;
-      banjod4f.play();
-    }
-    if (event.key === "m") {
-      banjod4p.currentTime = 0.1;
-      banjod4p.play();
-    }
-  }
+  playAudio = (link, playTime = 0) => {
+    const audio = new Audio(link);
+    audio.currentTime = playTime;
+    audio.playbackRate = 1;
+    audio.play();
+  };
 
-  handleClick1 = event => {
-    banjoa3f.currentTime = 0.1;
-    banjoa3f.play();
+  changeToDrums = () => {
+    this.setState({
+      index: 0
+    });
   };
-  handleClick2 = event => {
-    banjoa3p.currentTime = 0.1;
-    banjoa3p.play();
+
+  changeToHipHop = () => {
+    this.setState({
+      index: 1
+    });
   };
-  handleClick3 = event => {
-    banjoa4f.currentTime = 0.1;
-    banjoa4f.play();
+
+  changeToPiano = () => {
+    this.setState({
+      index: 2
+    });
   };
-  handleClick4 = event => {
-    banjoa4p.currentTime = 0.1;
-    banjoa4p.play();
+
+  handleKey = event => {
+    if (this.props.sound_kits) {
+      switch (event.key) {
+        case "1":
+          this.playAudio(this.props.sound_kits[this.state.index].one_key);
+          this.setState({
+            color: "rgb(255, 200, 200)"
+          });
+          break;
+        case "2":
+          this.playAudio(this.props.sound_kits[this.state.index].two_key);
+          this.setState({
+            color: "rgb(255, 150, 150)"
+          });
+          break;
+        case "3":
+          this.playAudio(this.props.sound_kits[this.state.index].three_key);
+          this.setState({
+            color: "rgb(255, 100, 100)"
+          });
+          break;
+        case "4":
+          this.playAudio(this.props.sound_kits[this.state.index].four_key);
+          this.setState({
+            color: "rgb(161, 244, 255)"
+          });
+          break;
+        case "5":
+          this.playAudio(this.props.sound_kits[this.state.index].five_key);
+          this.setState({
+            color: "rgb(185, 131, 175)"
+          });
+          break;
+        case "6":
+          this.playAudio(this.props.sound_kits[this.state.index].six_key);
+          this.setState({
+            color: "rgb(187, 255, 187)"
+          });
+          break;
+        case "7":
+          this.playAudio(this.props.sound_kits[this.state.index].seven_key);
+          this.setState({
+            color: "pink"
+          });
+          break;
+        case "8":
+          this.playAudio(this.props.sound_kits[this.state.index].eight_key);
+          this.setState({
+            color: "rgb(140, 140, 255)"
+          });
+          break;
+        case "9":
+          this.playAudio(this.props.sound_kits[this.state.index].nine_key);
+          this.setState({
+            color: "rgb(255, 150, 150)"
+          });
+          break;
+        case "0":
+          this.playAudio(this.props.sound_kits[this.state.index].zero_key);
+          this.setState({
+            color: "rgb(255, 200, 200)"
+          });
+          break;
+        case "q":
+          this.playAudio(this.props.sound_kits[this.state.index].q_key);
+          this.setState({
+            color: "rgb(161, 244, 255)"
+          });
+          break;
+        case "w":
+          this.playAudio(this.props.sound_kits[this.state.index].w_key);
+          this.setState({
+            color: "rgb(255, 255, 0)"
+          });
+          break;
+        case "e":
+          this.playAudio(this.props.sound_kits[this.state.index].e_key);
+          this.setState({
+            color: "rgb(187, 255, 187)"
+          });
+          break;
+        case "r":
+          this.playAudio(this.props.sound_kits[this.state.index].r_key);
+          this.setState({
+            color: "rgb(140, 140, 255)"
+          });
+          break;
+        case "t":
+          this.playAudio(this.props.sound_kits[this.state.index].t_key);
+          this.setState({
+            color: "rgb(255, 168, 168)"
+          });
+          break;
+        case "y":
+          this.playAudio(this.props.sound_kits[this.state.index].y_key);
+          this.setState({
+            color: "rgb(255, 255, 196)"
+          });
+          break;
+        case "u":
+          this.playAudio(this.props.sound_kits[this.state.index].u_key);
+          this.setState({
+            color: "rgb(255, 220, 155)"
+          });
+          break;
+        case "i":
+          this.playAudio(this.props.sound_kits[this.state.index].i_key);
+          this.setState({
+            color: "pink"
+          });
+          break;
+        case "o":
+          this.playAudio(this.props.sound_kits[this.state.index].o_key);
+          this.setState({
+            color: "rgb(185, 131, 175)"
+          });
+          break;
+        case "p":
+          this.playAudio(this.props.sound_kits[this.state.index].p_key);
+          this.setState({
+            color: "pink"
+          });
+          break;
+        case "a":
+          this.playAudio(this.props.sound_kits[this.state.index].a_key);
+          this.setState({
+            color: "rgb(185, 131, 175)"
+          });
+          break;
+        case "s":
+          this.playAudio(this.props.sound_kits[this.state.index].s_key);
+          this.setState({
+            color: "pink"
+          });
+          break;
+        case "d":
+          this.playAudio(this.props.sound_kits[this.state.index].d_key);
+          this.setState({
+            color: "rgb(140, 140, 255)"
+          });
+          break;
+        case "f":
+          this.playAudio(this.props.sound_kits[this.state.index].f_key);
+          this.setState({
+            color: "rgb(255, 168, 168)"
+          });
+          break;
+        case "g":
+          this.playAudio(this.props.sound_kits[this.state.index].g_key);
+          this.setState({
+            color: "rgb(255, 255, 196)"
+          });
+          break;
+        case "h":
+          this.playAudio(this.props.sound_kits[this.state.index].h_key);
+          this.setState({
+            color: "rgb(140, 140, 255)"
+          });
+          break;
+        case "j":
+          this.playAudio(this.props.sound_kits[this.state.index].j_key);
+          this.setState({
+            color: "rgb(187, 255, 187)"
+          });
+          break;
+        case "k":
+          this.playAudio(this.props.sound_kits[this.state.index].k_key);
+          this.setState({
+            color: "rgb(161, 244, 255)"
+          });
+          break;
+        case "l":
+          this.playAudio(this.props.sound_kits[this.state.index].l_key);
+          this.setState({
+            color: "rgb(185, 131, 175)"
+          });
+          break;
+        case "z":
+          this.playAudio(this.props.sound_kits[this.state.index].z_key);
+          this.setState({
+            color: "rgb(161, 244, 255)"
+          });
+          break;
+        case "x":
+          this.playAudio(this.props.sound_kits[this.state.index].x_key);
+          this.setState({
+            color: "rgb(255, 220, 155)"
+          });
+          break;
+        case "c":
+          this.playAudio(this.props.sound_kits[this.state.index].c_key);
+          this.setState({
+            color: "rgb(187, 255, 187)"
+          });
+          break;
+        case "v":
+          this.playAudio(this.props.sound_kits[this.state.index].v_key);
+          this.setState({
+            color: "pink"
+          });
+          break;
+        case "b":
+          this.playAudio(this.props.sound_kits[this.state.index].b_key);
+          this.setState({
+            color: "rgb(185, 131, 175)"
+          });
+          break;
+        case "n":
+          this.playAudio(this.props.sound_kits[this.state.index].n_key);
+          this.setState({
+            color: "rgb(140, 140, 255)"
+          });
+          break;
+        case "m":
+          this.playAudio(this.props.sound_kits[this.state.index].m_key);
+          this.setState({
+            color: "rgb(255, 168, 168)"
+          });
+          break;
+        default:
+          console.log("nothing");
+      }
+    }
   };
-  handleClick5 = event => {
-    banjoa5f.currentTime = 0.1;
-    banjoa5f.play();
+
+  handleClick1 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].one_key);
+    this.setState({
+      color: "rgb(255, 200, 200)"
+    });
   };
-  handleClick6 = event => {
-    banjoa5p.currentTime = 0.1;
-    banjoa5p.play();
+  handleClick2 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].two_key);
+    this.setState({
+      color: "rgb(255, 150, 150)"
+    });
   };
-  handleClick7 = event => {
-    banjoas3f.currentTime = 0.1;
-    banjoas3f.play();
+  handleClick3 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].three_key);
+    this.setState({
+      color: "rgb(255, 100, 100)"
+    });
   };
-  handleClick8 = event => {
-    banjoas3p.currentTime = 0.1;
-    banjoas3p.play();
+  handleClick4 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].four_key);
+    this.setState({
+      color: "rgb(161, 244, 255)"
+    });
   };
-  handleClick9 = event => {
-    banjoas4f.currentTime = 0.1;
-    banjoas4f.play();
+  handleClick5 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].five_key);
+    this.setState({
+      color: "rgb(185, 131, 175)"
+    });
   };
-  handleClick0 = event => {
-    banjoas4p.currentTime = 0.1;
-    banjoas4p.play();
+  handleClick6 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].six_key);
+    this.setState({
+      color: "rgb(187, 255, 187)"
+    });
+  };
+  handleClick7 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].seven_key);
+    this.setState({
+      color: "pink"
+    });
+  };
+  handleClick8 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].eight_key);
+    this.setState({
+      color: "rgb(140, 140, 255)"
+    });
+  };
+  handleClick9 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].nine_key);
+    this.setState({
+      color: "rgb(255, 150, 150)"
+    });
+  };
+  handleClick0 = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].zero_key);
+    this.setState({
+      color: "rgb(255, 200, 200)"
+    });
   };
 
   //   pad keys q-p on clicks
-  handleClickQ = event => {
-    banjoas5f.currentTime = 0.1;
-    banjoas5f.play();
+  handleClickQ = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].q_key);
+    this.setState({
+      color: "rgb(161, 244, 255)"
+    });
   };
-  handleClickW = event => {
-    banjoas5p.currentTime = 0.1;
-    banjoas5p.play();
+  handleClickW = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].w_key);
+    this.setState({
+      color: "rgb(255, 255, 0)"
+    });
   };
-  handleClickE = event => {
-    banjob3f.currentTime = 0.1;
-    banjob3f.play();
+  handleClickE = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].e_key);
+    this.setState({
+      color: "rgb(187, 255, 187)"
+    });
   };
-  handleClickR = event => {
-    banjob3p.currentTime = 0.1;
-    banjob3p.play();
+  handleClickR = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].r_key);
+    this.setState({
+      color: "rgb(140, 140, 255)"
+    });
   };
-  handleClickT = event => {
-    banjob4f.currentTime = 0.1;
-    banjob4f.play();
+  handleClickT = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].t_key);
+    this.setState({
+      color: "rgb(255, 168, 168)"
+    });
   };
-  handleClickY = event => {
-    banjob4p.currentTime = 0.1;
-    banjob4p.play();
+  handleClickY = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].y_key);
+    this.setState({
+      color: "rgb(255, 255, 196)"
+    });
   };
-  handleClickU = event => {
-    banjob5f.currentTime = 0.1;
-    banjob5f.play();
+  handleClickU = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].u_key);
+    this.setState({
+      color: "rgb(255, 220, 155)"
+    });
   };
-  handleClickI = event => {
-    banjob5p.currentTime = 0.1;
-    banjob5p.play();
+  handleClickI = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].i_key);
+    this.setState({
+      color: "pink"
+    });
   };
-  handleClickO = event => {
-    banjoc3f.currentTime = 0.1;
-    banjoc3f.play();
+  handleClickO = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].o_key);
+    this.setState({
+      color: "rgb(185, 131, 175)"
+    });
   };
-  handleClickP = event => {
-    banjoc3p.currentTime = 0.1;
-    banjoc3p.play();
+  handleClickP = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].p_key);
+    this.setState({
+      color: "pink"
+    });
   };
 
   //   pad keys a-l on clicks
-  handleClickA = event => {
-    banjoc4f.currentTime = 0.1;
-    banjoc4f.play();
+  handleClickA = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].a_key);
+    this.setState({
+      color: "rgb(185, 131, 175)"
+    });
   };
-  handleClickS = event => {
-    banjoc4p.currentTime = 0.1;
-    banjoc4p.play();
+  handleClickS = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].s_key);
+    this.setState({
+      color: "pink"
+    });
   };
-  handleClickD = event => {
-    banjoc5f.currentTime = 0.1;
-    banjoc5f.play();
+  handleClickD = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].d_key);
+    this.setState({
+      color: "rgb(140, 140, 255)"
+    });
   };
-  handleClickF = event => {
-    banjoc5p.currentTime = 0.1;
-    banjoc5p.play();
+  handleClickF = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].f_key);
+    this.setState({
+      color: "rgb(255, 168, 168)"
+    });
   };
-  handleClickG = event => {
-    banjoc6f.currentTime = 0.1;
-    banjoc6f.play();
+  handleClickG = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].g_key);
+    this.setState({
+      color: "rgb(255, 255, 196)"
+    });
   };
-  handleClickH = event => {
-    banjocs3f.currentTime = 0.1;
-    banjocs3f.play();
+  handleClickH = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].h_key);
+    this.setState({
+      color: "rgb(140, 140, 255)"
+    });
   };
-  handleClickJ = event => {
-    banjocs3p.currentTime = 0.1;
-    banjocs3p.play();
+  handleClickJ = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].j_key);
+    this.setState({
+      color: "rgb(187, 255, 187)"
+    });
   };
-  handleClickK = event => {
-    banjocs4f.currentTime = 0.1;
-    banjocs4f.play();
+  handleClickK = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].k_key);
+    this.setState({
+      color: "rgb(161, 244, 255)"
+    });
   };
-  handleClickL = event => {
-    banjocs4p.currentTime = 0.1;
-    banjocs4p.play();
+  handleClickL = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].l_key);
+    this.setState({
+      color: "rgb(185, 131, 175)"
+    });
   };
 
   // pad keys z-m on clicks
-  handleClickZ = event => {
-    banjocs5f.currentTime = 0.1;
-    banjocs5f.play();
+  handleClickZ = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].z_key);
+    this.setState({
+      color: "rgb(161, 244, 255)"
+    });
   };
-  handleClickX = event => {
-    banjocs6f.currentTime = 0.1;
-    banjocs6f.play();
+  handleClickX = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].x_key);
+    this.setState({
+      color: "rgb(255, 220, 155)"
+    });
   };
-  handleClickC = event => {
-    banjod3f.currentTime = 0.1;
-    banjod3f.play();
+  handleClickC = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].c_key);
+    this.setState({
+      color: "rgb(187, 255, 187)"
+    });
   };
-  handleClickV = event => {
-    banjod3p.currentTime = 0.1;
-    banjod3p.play();
+  handleClickV = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].v_key);
+    this.setState({
+      color: "pink"
+    });
   };
-  handleClickB = event => {
-    banjod4f.currentTime = 0.1;
-    banjod4f.play();
+  handleClickB = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].b_key);
+    this.setState({
+      color: "rgb(185, 131, 175)"
+    });
   };
-  handleClickN = event => {
-    banjod4p.currentTime = 0.1;
-    banjod4p.play();
+  handleClickN = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].n_key);
+    this.setState({
+      color: "rgb(140, 140, 255)"
+    });
   };
-  handleClickM = key => {
-    banjod5f.currentTime = 0.1;
-    banjod5f.play();
+  handleClickM = () => {
+    this.playAudio(this.props.sound_kits[this.state.index].m_key);
+    this.setState({
+      color: "rgb(255, 168, 168)"
+    });
+  };
+
+  buttonsDiv = () => {
+    if (this.state.index === 0) {
+      return (
+        <div className="change-kit-buttons">
+          {/* <div className="kit-selection">Try A Different Kit</div> */}
+          <button className="hip-hop-button" onClick={this.changeToHipHop}>
+            Hip Hop Kit
+          </button>
+          <br />
+          <button className="piano-button" onClick={this.changeToPiano}>
+            Piano Kit
+          </button>
+        </div>
+      );
+    } else if (this.state.index === 1) {
+      return (
+        <div className="change-kit-buttons">
+          {/* <div className="kit-selection">Try A Different Kit</div> */}
+          <button className="drums-button" onClick={this.changeToDrums}>
+            Drum Kit
+          </button>
+          <br />
+          <button className="piano-button" onClick={this.changeToPiano}>
+            Piano Kit
+          </button>
+        </div>
+      );
+    } else if (this.state.index === 2) {
+      return (
+        <div className="change-kit-buttons">
+          {/* <div className="kit-selection">Try A Different Kit</div> */}
+          <button className="drums-button" onClick={this.changeToDrums}>
+            Drum Kit
+          </button>
+          <br />
+          <button className="hip-hop-button" onClick={this.changeToHipHop}>
+            Hip Hop Kit
+          </button>
+        </div>
+      );
+    }
   };
 
   render() {
-    console.log(this.props.sound_kits);
+    const styleObj = {
+      background: this.state.color
+    };
     return (
-      <div>
-        <div className="animations">Animations Container</div>
-        <div className="recording">Recording</div>
-        <Card sound_kits={this.props.sound_kits} />
+      <div className="keyboard" style={styleObj}>
+        {/* <Card sound_kits={this.props.sound_kits} /> */}
+        <div className="buttons-and-metro">
+          {this.buttonsDiv()}
+          <Metronome />
+        </div>
         <div className="pads">
-          <div className="num1-0">
+          <div style={styleObj} className="num1-0">
             <div className="pad1" onClick={this.handleClick1}>
               <h1 className="key-text">1</h1>
             </div>
@@ -438,7 +581,7 @@ class Keyboard extends React.Component {
               <h1 className="key-text">0</h1>
             </div>
           </div>
-          <div className="row-q">
+          <div style={styleObj} className="row-q">
             <div className="pad-q" onClick={this.handleClickQ}>
               <h1 className="key-text">Q</h1>
             </div>
@@ -470,7 +613,7 @@ class Keyboard extends React.Component {
               <h1 className="key-text">P</h1>
             </div>
           </div>
-          <div className="row-a">
+          <div style={styleObj} className="row-a">
             <div className="pad-a" onClick={this.handleClickA}>
               <h1 className="key-text">A</h1>
             </div>
@@ -499,7 +642,7 @@ class Keyboard extends React.Component {
               <h1 className="key-text">L</h1>
             </div>
           </div>
-          <div className="row-z">
+          <div style={styleObj} className="row-z">
             <div className="pad-z" onClick={this.handleClickZ}>
               <h1 className="key-text">Z</h1>
             </div>
@@ -523,7 +666,6 @@ class Keyboard extends React.Component {
             </div>
           </div>
         </div>
-        <div className="beat-mapping">Beat Map</div>
       </div>
     );
   }

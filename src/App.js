@@ -2,6 +2,8 @@ import React from "react";
 // import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Keyboard from "./components/Keyboard";
+import Title from "./components/Title";
+// import Metronome from "./components/Metronome";
 
 const API = "http://localhost:3000";
 
@@ -20,13 +22,25 @@ class App extends React.Component {
       });
   }
 
+  handleClick = color => {
+    this.setState({
+      color: color
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <header>
-          <h1>Beat Colorizer</h1>
-        </header>
-        <Keyboard sound_kits={this.state.soundkits} />
+        <Title />
+        {/* <div className="animations">Animations Container</div>
+        <div className="recording">Recording</div> */}
+        {/* <Metronome /> */}
+        <Keyboard
+          sound_kits={this.state.soundkits}
+          titleColor={this.state.color}
+          handleClick={this.handleClick}
+        />
+        {/* <div className="beat-mapping">Beat Map</div> */}
       </div>
     );
   }

@@ -1,10 +1,22 @@
 .App {
   text-align: center;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  background-color: rgb(187, 212, 255);
+  padding-bottom: 80px;
+}
+
+.title {
+  color: white;
+  text-shadow: 1px 0 5px black, 0px 1px 5px black, -1px 0 5px black,
+    0 -1px 5px black;
+  border-top: dotted 10px;
+  border-bottom: dotted 10px;
+  font-size: 70px;
+  padding: 10px;
 }
 /* 
 .button {
@@ -23,7 +35,7 @@
   bottom: 0%;
 }
 
-@keyframes jump {
+/* @keyframes jump {
   0% {
     bottom: 0%;
     left: 20%;
@@ -36,6 +48,68 @@
     bottom: 0%;
     left: 80%;
   }
+} */
+.kit-selection {
+  font-size: 30px;
+  margin-bottom: 10px;
+  border-bottom: solid;
+}
+
+.hip-hop-button {
+  height: 75px;
+  width: 200px;
+  background-color: black;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: solid;
+}
+
+.hip-hop-button:hover {
+  border: solid;
+  color: black;
+  background-color: rgb(187, 212, 255);
+}
+
+.drums-button {
+  height: 75px;
+  width: 200px;
+  background-color: black;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: solid;
+}
+
+.drums-button:hover {
+  border: solid;
+  color: black;
+  background-color: rgb(187, 212, 255);
+}
+
+.piano-button {
+  height: 75px;
+  width: 200px;
+  background-color: black;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: solid;
+}
+
+.piano-button:hover {
+  border: solid;
+  color: black;
+  background-color: rgb(187, 212, 255);
 }
 
 .num1-0 {
@@ -50,12 +124,12 @@
   flex: 1;
   margin: 2px;
   border: solid;
-  color: white;
+  color: black;
 }
 
 .num1-0 > div:hover {
   border: solid;
-  color: black;
+  color: white;
 }
 
 .row-q {
@@ -70,12 +144,12 @@
   flex: 1;
   margin: 2px;
   border: solid;
-  color: white;
+  color: black;
 }
 
 .row-q > div:hover {
   border: solid;
-  color: black;
+  color: white;
 }
 
 .row-a {
@@ -91,12 +165,12 @@
   flex: 1;
   margin: 2px;
   border: solid;
-  color: white;
+  color: black;
 }
 
 .row-a > div:hover {
   border: solid;
-  color: black;
+  color: white;
 }
 
 .row-z {
@@ -112,18 +186,33 @@
   flex: 1;
   margin: 2px;
   border: solid;
-  color: white;
+  color: black;
 }
 
 .row-z > div:hover {
   border: solid;
-  color: black;
+  color: white;
 }
 
 .key-text {
-  color: black;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   width: 50px;
   padding: 10px;
+}
+
+.keyboard {
+  border: solid;
+  padding: 20px;
+}
+
+.change-kit-buttons {
+  margin-left: 10%;
+  margin-top: 30px;
+}
+
+.buttons-and-metro {
+  display: flex;
 }
 
 .pad1 {
@@ -137,20 +226,20 @@
   background-color: rgb(255, 100, 100);
 }
 .pad4 {
-  background-color: rgb(255, 50, 50);
+  background-color: rgb(161, 244, 255);
 }
 
 .pad5 {
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(185, 131, 175);
 }
 .pad6 {
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(187, 255, 187);
 }
 .pad7 {
-  background-color: rgb(255, 50, 50);
+  background-color: pink;
 }
 .pad8 {
-  background-color: rgb(255, 100, 100);
+  background-color: rgb(140, 140, 255);
 }
 .pad9 {
   background-color: rgb(255, 150, 150);
@@ -160,7 +249,7 @@
 }
 
 .pad-q {
-  background-color: rgb(255, 255, 0);
+  background-color: rgb(161, 244, 255);
 }
 
 .pad-w {
@@ -187,10 +276,10 @@
   background-color: pink;
 }
 .pad-o {
-  background-color: rgb(161, 244, 255);
+  background-color: rgb(185, 131, 175);
 }
 .pad-p {
-  background-color: rgb(185, 131, 175);
+  background-color: pink;
 }
 
 .pad-a {
@@ -198,7 +287,7 @@
 }
 
 .pad-s {
-  background-color: rgb(187, 255, 187);
+  background-color: pink;
 }
 .pad-d {
   background-color: rgb(140, 140, 255);
@@ -211,10 +300,10 @@
   background-color: rgb(255, 255, 196);
 }
 .pad-h {
-  background-color: rgb(255, 220, 155);
+  background-color: rgb(140, 140, 255);
 }
 .pad-j {
-  background-color: pink;
+  background-color: rgb(187, 255, 187);
 }
 .pad-k {
   background-color: rgb(161, 244, 255);
@@ -224,16 +313,16 @@
 }
 
 .pad-z {
-  background-color: rgb(255, 255, 196);
+  background-color: rgb(161, 244, 255);
 }
 .pad-x {
   background-color: rgb(255, 220, 155);
 }
 .pad-c {
-  background-color: pink;
+  background-color: rgb(187, 255, 187);
 }
 .pad-v {
-  background-color: rgb(161, 244, 255);
+  background-color: pink;
 }
 .pad-b {
   background-color: rgb(185, 131, 175);
@@ -243,4 +332,69 @@
 }
 .pad-m {
   background-color: rgb(255, 168, 168);
+}
+
+.metronome {
+  text-align: center;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 20px 30px 20px 30px;
+  font-size: 30px;
+}
+
+.bpm-display {
+  border: solid;
+  width: 150px;
+  margin-left: 80px;
+}
+
+.bpm-slider input {
+  -webkit-appearance: none;
+  width: 300px;
+  margin: 10px;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.bpm-slider input:hover {
+  opacity: 1;
+}
+
+.bpm-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 40px;
+  background: black;
+  cursor: col-resize;
+}
+
+.bpm-slider input::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: black;
+  cursor: pointer;
+}
+
+.metronome button {
+  background-color: black;
+  padding: 10px;
+  border: solid white;
+  width: 100px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.metronome button:hover {
+  border: solid;
+  color: black;
+  background-color: rgb(187, 212, 255);
+}
+
+.metronome-text {
+  padding-bottom: 5px;
 }

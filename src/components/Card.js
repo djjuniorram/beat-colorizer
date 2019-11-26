@@ -42,7 +42,9 @@ class Card extends Component {
             }}
           >
             {this.props.sound_kits.map((kit, index) => (
-              <button key={index}>{kit.name}</button>
+              <button key={index} onClick={this.props.changeKit1()}>
+                {kit.name}
+              </button>
             ))}
           </div>
         ) : null}
