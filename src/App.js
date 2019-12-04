@@ -1,15 +1,18 @@
 import React from "react";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Keyboard from "./components/Keyboard";
 import Title from "./components/Title";
-// import Metronome from "./components/Metronome";
+import AudioPlayer from "./components/AudioPlayer";
+import Home from "./components/Home";
+import Logo from "./components/Logo";
 
 const API = "http://localhost:3000";
 
 class App extends React.Component {
   state = {
-    soundkits: []
+    soundkits: [],
+    beats: []
   };
 
   componentDidMount() {
@@ -18,6 +21,13 @@ class App extends React.Component {
       .then(data => {
         this.setState({
           soundkits: data.sound_kits
+        });
+      });
+    fetch(`${API}/beats`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          beats: data.beats
         });
       });
   }
@@ -30,18 +40,28 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <Title />
-        {/* <div className="animations">Animations Container</div>
+      <Router>
+        <div className="App">
+          <Route path="/">
+            <Logo />
+          </Route>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/keyboard">
+            <Title />
+            {/* <div className="animations">Animations Container</div>
         <div className="recording">Recording</div> */}
-        {/* <Metronome /> */}
-        <Keyboard
-          sound_kits={this.state.soundkits}
-          titleColor={this.state.color}
-          handleClick={this.handleClick}
-        />
-        {/* <div className="beat-mapping">Beat Map</div> */}
-      </div>
+            <Keyboard
+              sound_kits={this.state.soundkits}
+              titleColor={this.state.color}
+              handleClick={this.handleClick}
+            />
+            <AudioPlayer beats={this.state.beats} />
+            {/* <div className="beat-mapping">Beat Map</div> */}
+          </Route>
+        </div>
+      </Router>
     );
   }
 }
